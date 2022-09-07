@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import logo from "../logo.svg";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
@@ -14,8 +15,14 @@ function Register() {
   const [emailError, setEmailError] = useState("");
   const [bigError, setBigError] = useState("");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     setBigError("");
+    setEmailError("");
+    setNameError("");
+    setError("");
+    setError2("");
   }, [name, email, password, confirmPassword]);
 
   const Post = async () => {
@@ -40,15 +47,13 @@ function Register() {
     }
 
     try {
-      const result = await axios.post("http://localhost:8000/register", {
+      await axios.post("http://localhost:8000/register", {
         name,
         email,
         password: confirmPassword,
       });
-      const { data } = result.response;
-      if (data) {
-        alert("Registered successfully.");
-      }
+
+      navigate("/login", { replace: false });
     } catch (error) {
       setBigError(error.response.data);
     } finally {

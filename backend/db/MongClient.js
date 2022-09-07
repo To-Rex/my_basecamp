@@ -5,15 +5,16 @@ const uri = `mongodb+srv://doubleh:MyBasecamp003@mybasecamp.osrfmdb.mongodb.net/
 const client = new MongoClient(uri);
 
 const Register = async (user) => {
-  const { email } = user;
+  const { email, password, name, sign_in } = user;
+  console.log(email, password, name, sign_in);
   try {
     await client.connect();
     const check = await client
       .db("my_basecamp")
       .collection("users")
       .findOne({ email });
-    console.log(check);
-    if (typeof check === "object") {
+    if (typeof check === "string") {
+      console.log("User already exist:", email);
       console.log("error");
       return "User already exist.";
     } else {

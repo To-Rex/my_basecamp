@@ -1,6 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 import logo from "./logo.svg";
 import { useNavigate } from "react-router-dom";
 
