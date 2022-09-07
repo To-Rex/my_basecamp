@@ -6,7 +6,7 @@ const client = new MongoClient(uri);
 
 const Register = async (user) => {
   const { email, password, name, sign_in } = user;
-  console.log(email, password, name, sign_in);
+  const hashedPassword = await bcrypt.genSalt();
   try {
     await client.connect();
     const check = await client
